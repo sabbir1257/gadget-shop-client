@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
      return (
@@ -8,7 +9,7 @@ const Navbar = () => {
                          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                               <svg
                                    xmlns="http://www.w3.org/2000/svg"
-                                   className="h-5 w-5"
+                                   className="w-5 h-5"
                                    fill="none"
                                    viewBox="0 0 24 24"
                                    stroke="currentColor">
@@ -33,25 +34,29 @@ const Navbar = () => {
                               <li><a>Item 3</a></li>
                          </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <h2 className="text-xl btn btn-ghost">Gadget Shoh</h2>
                </div>
-               <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                         <li><a>Item 1</a></li>
+               <div className="hidden navbar-center lg:flex">
+                    <ul className="px-1 menu menu-horizontal">
                          <li>
-                              <details>
-                                   <summary>Parent</summary>
-                                   <ul className="p-2">
-                                        <li><a>Submenu 1</a></li>
-                                        <li><a>Submenu 2</a></li>
-                                   </ul>
-                              </details>
+                              <NavLink to="/">Home</NavLink>
                          </li>
-                         <li><a>Item 3</a></li>
+                         <li>
+                              <NavLink to="/products">Products</NavLink>
+                         </li>
+                         <li>
+                              <NavLink to="/about">About</NavLink>
+                         </li>
+                         <li>
+                              <NavLink to="/contact-us">Contact Us</NavLink>
+                         </li>
                     </ul>
                </div>
                <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    <div className="flex items-center gap-2">
+                         <button className='text-black bg-gray-400 btn'>sing in</button>
+                         <button className='text-white bg-black btn'>sing up</button>
+                    </div>
                </div>
           </div>
      )
