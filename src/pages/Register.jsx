@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
+import { data, Link } from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 
 const Register = () => {
   const { CreateUser } = useAuth();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
+  const onSubmit = (data) => {
+    CreateUser(data.email, data.password)
+  }
   return (
     <div className="min-h-screen hero bg-base-200">
       <div className="flex-col hero-content lg:flex-row-reverse">
@@ -17,7 +19,7 @@ const Register = () => {
           </p>
         </div>
         <div className="w-full max-w-sm shadow-2xl card bg-base-100 shrink-0">
-          <form className="card-body">
+          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -42,7 +44,7 @@ const Register = () => {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
-                {...register('New Password', {
+                {...register('password', {
                   required: true,
                   minLength: 6,
                 })}
@@ -66,11 +68,24 @@ const Register = () => {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
-                required
+                {...register('confirmPassword', {
+                  require: true,
+                  validate: (value) => {
+                    if (watch('password') != value) {
+                      return 'Your password do not match'
+                    }
+                  }
+                }
+                )}
               />
+              {errors.confirmPassword && (
+                <p className="text-sm font-light text-red-500 " >
+                  Both Password must match
+                </p>
+              )}
             </div>
             <div className="mt-6 form-control">
-              <button className="btn btn-primary">Register</button>
+              <button className='btn btn-primary' type='submit'>Register</button>
             </div>
             <p className='my-4 text-sm font-light'>Already Have an account? <Link className='text-[#4a00ff] font-semibold' to="/login">Login</Link></p>
           </form>
