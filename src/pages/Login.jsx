@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 import { useForm } from 'react-hook-form';
+import GoogleLogin from '../components/login-registration/GoogleLogin';
 
 const Login = () => {
   const { Login } = useAuth();
@@ -10,8 +11,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors }
   } = useForm();
+
+  const navigate = useNavigate()
+
   const onSubmit = (data) => {
-    console.log(data);
+    Login(data.email, data.password);
+    navigate('/');
   }
 
   return (
@@ -69,6 +74,7 @@ const Login = () => {
             <div className="mt-6 form-control">
               <button type='submit' className="btn btn-primary">Login</button>
             </div>
+            <GoogleLogin/>
             <p className='my-4 text-sm font-light'>New here? <Link className='text-[#4a00ff] font-semibold' to="/register">Register</Link></p>
           </form>
         </div>
